@@ -1,16 +1,16 @@
 # Carregar e preparar documentos 
 
 from langchain_community.document_loaders import WebBaseLoader
-from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from langchain_community.vectorstores import SKLearnVectorStore
 from langchain_openai import OpenAIEmbeddings
 
 # List of URLs to load documents from
 urls = [
-    "<https://lilianweng.github.io/posts/2023-06-23-agent/>",
-    "<https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/>",
-    "<https://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/>",
+    "https://lilianweng.github.io/posts/2023-06-23-agent/",
+    "https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/",
+    "https://lilianweng.github.io/posts/2023-10-25-adv-attack-llm/",
 ]
 # Load documents from the URLs
 docs = [WebBaseLoader(url).load() for url in urls]
@@ -33,8 +33,9 @@ retriever = vectorstore.as_retriever(k=4)
 
 
 from langchain_ollama import ChatOllama
-from langchain.prompts import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from langchain_core.output_parsers import StrOutputParser
+
 # Define the prompt template for the LLM
 prompt = PromptTemplate(
     template="""You are an assistant for question-answering tasks.
