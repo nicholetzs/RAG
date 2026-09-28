@@ -4,7 +4,7 @@ from langchain_community.document_loaders import WebBaseLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 
 from langchain_community.vectorstores import SKLearnVectorStore
-from langchain_openai import OpenAIEmbeddings
+from langchain_ollama import OllamaEmbeddings
 
 # List of URLs to load documents from
 urls = [
@@ -27,7 +27,7 @@ doc_splits = text_splitter.split_documents(docs_list)
 # Create embeddings for documents and store them in a vector store
 vectorstore = SKLearnVectorStore.from_documents(
     documents=doc_splits,
-    embedding=OpenAIEmbeddings(openai_api_key="api_key"),
+    embedding=OllamaEmbeddings(model="nomic-embed-text"),
 )
 retriever = vectorstore.as_retriever(k=4)
 
